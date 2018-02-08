@@ -38,7 +38,7 @@ export class UserService {
                     return user;
                 }
                 catch (Exception) {
-                    console.log('Error: ${Exception}');
+                    console.log(`Error: ${Exception}`);
                 }
             }).catch(this.handleError);
     }
