@@ -8,9 +8,37 @@
         <button type="submit" class="btn btn-default" (click)="search(searchInput.value)">Search</button>
     </div>
 </div>
-<h2><b>Search Results</b></h2>
+<div *ngIf="searchResults">
+    <h2>
+        <b>Selected Photo</b>
+    </h2>
+    <div class="currentItem card" *ngIf="currentAnalytics || isAnalyzing">
+        <img src="{{currentItem?.thumbnailUrl}}" />
+        <div *ngIf="!isAnalyzing">
+            <h4>
+                <b>{{currentAnalytics?.description.captions[0].text}}</b>
+            </h4>
+            <div>
+                <span class="tag label" [ngClass]="{'label-default': tag.confidence >= .75, 'label-warning': tag.confidence >= .5 && tag.confidence < .75, 'label-danger': tag.confidence < .5}"
+                    *ngFor="let tag of currentAnalytics?.tags">{{tag.name}}</span>
+            </div>
+            <div *ngFor="let face of currentAnalytics?.faces">
+                <b>{{face?.gender}}</b>: {{face?.age}}
+            </div>
+        </div>
+        <div *ngIf="isAnalyzing">
+            <h4>Analyzing Photo</h4>
+        </div>
+    </div>
+    <h4 class="no-results" *ngIf="!currentAnalytics && !isAnalyzing">Select a photo to analyze it.</h4>
+</div>
+<br/>
+<br/>
+<h2>
+    <b>Search Results</b>
+</h2>
 <div class="results" *ngIf="searchResults">
-    <div *ngFor="let result of searchResults" class="card">
+    <div *ngFor="let result of searchResults" (click)="analyze(result)" class="card">
         <img src="{{result?.thumbnailUrl}}" />
     </div>
 </div>

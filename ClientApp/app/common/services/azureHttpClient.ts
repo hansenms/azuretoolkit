@@ -11,7 +11,7 @@ export class AzureHttpClient {
             headers: headers
         });
     }
-    post(url: string, apiKey: string, data: string) {
+    post(url: string, apiKey: string, data: any) {
         let headers = new Headers();
         headers.append('Ocp-Apim-Subscription-Key', apiKey);
         return this.http.post(url, data, {
