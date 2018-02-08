@@ -32,8 +32,7 @@ import { UserService } from './common/services/user.service';
             { path: '**', redirectTo: 'home' }
         ]),
         AzTKCommonModule
-    ],
-    providers: [UserService, { provide: 'ORIGIN_URL', useValue: location.origin }]
+    ]
 })
 export class AppModuleShared {
 }
