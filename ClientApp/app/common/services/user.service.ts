@@ -18,7 +18,6 @@ export class UserService {
     public getUser(): Observable<User> {
 
         return this.http.get(`${this.originUrl}/.auth/me`)
-        //return this.http.get("https://www.google.com")
             .map(response => {
                 try {
                     this.aadUser = response.json()[0] as AADUser;
@@ -33,6 +32,9 @@ export class UserService {
                             case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname":
                                 user.lastName = claim.val;
                                 break;
+                            case "jobTitle":
+                                user.jobTitle = claim.val;
+                                break;    
                         }
                     });
                     return user;
