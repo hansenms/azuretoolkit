@@ -21,14 +21,16 @@ export class UserService {
     }
 
     public getUser(): Observable<User> {
+
         return this.http.get(`${this.originUrl}/.auth/me`)
+        //return this.http.get("https://www.google.com")
             .map(response => {
                 try {
                     this.aadUser = response.json()[0] as AADUser;
    
                     let user = new User();
                     user.userId = this.aadUser.user_id;
-   
+                    user.userId = "BLAHBLAH"
                     this.aadUser.user_claims.forEach(claim => {
                         switch (claim.typ) {
                             case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname":
