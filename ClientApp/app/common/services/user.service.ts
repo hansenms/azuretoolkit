@@ -22,7 +22,7 @@ export class UserService {
 
     public getUser(): Observable<User> {
 
-        return this.http.get(`${this.originUrl}/blah.html`)
+        return this.http.get(`${this.originUrl}/.auth/me`)
         //return this.http.get("https://www.google.com")
             .map(response => {
                 try {
