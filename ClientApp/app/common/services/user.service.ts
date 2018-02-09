@@ -16,8 +16,14 @@ export class UserService {
     }
 
     public getUser(): Observable<User> {
+        var authUrl = "/.auth/me";
 
-        return this.http.get(`${this.originUrl}/.auth/me`)
+        //For local debugging
+        if (this.originUrl.indexOf("localhost") !== -1) {
+            authUrl = "/.auth/me.json"
+        }
+
+        return this.http.get(`${this.originUrl}${authUrl}`)
             .map(response => {
                 try {
                     this.aadUser = response.json()[0] as AADUser;
