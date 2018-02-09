@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Inject } from "@angular/core";
+import { Injectable, InjectionToken, Inject, ValueProvider } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,13 +11,8 @@ export class UserService {
     private originUrl: string;
     private aadUser: AADUser;
 
-    /*
-    constructor(private http: Http, @Inject('ORIGIN_URL')originUrl: string) {
-        this.originUrl = originUrl;
-    }*/
-
-    constructor(private http: Http) {
-        this.originUrl = "https://mihansenazuretoolkit.azurewebsites.net";
+    constructor(private http: Http, @Inject('BASE_URL') originUrl: string) {
+            this.originUrl = originUrl;
     }
 
     public getUser(): Observable<User> {
