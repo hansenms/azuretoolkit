@@ -26,12 +26,10 @@ export class UserService {
         //return this.http.get("https://www.google.com")
             .map(response => {
                 try {
-                    //this.aadUser = response.json()[0] as AADUser;
+                    this.aadUser = response.json()[0] as AADUser;
    
                     let user = new User();
-                    //user.userId = this.aadUser.user_id;
-                    user.userId = "BLAHBLAH"
-                    /*
+                    user.userId = this.aadUser.user_id;
                     this.aadUser.user_claims.forEach(claim => {
                         switch (claim.typ) {
                             case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname":
@@ -42,7 +40,6 @@ export class UserService {
                                 break;
                         }
                     });
-                    */
                     return user;
                 }
                 catch (Exception) {
