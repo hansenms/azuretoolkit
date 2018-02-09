@@ -19,12 +19,15 @@ namespace WebApplicationBasic.Controllers
 
         private AzureToolkitContext _context;
 
+        private IConfiguration _configuration;
+
         public ImagesController(IConfiguration configuration,
                                 ILogger<ImagesController> logger,
                                 AzureToolkitContext context)
         {
             _logger = logger;
             _context = context;
+            _configuration = configuration;
 
             _logger.LogInformation("storage account: " + configuration["storageaccount"]);
             _logger.LogInformation("storage key: " + configuration["storagekey"]);
@@ -66,6 +69,12 @@ namespace WebApplicationBasic.Controllers
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<string> GetImage()
+        {
+            return _configuration.GetConnectionString("defaultConnection");
         }
 
     }
