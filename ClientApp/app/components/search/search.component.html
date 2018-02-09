@@ -25,6 +25,9 @@
             <div *ngFor="let face of currentAnalytics?.faces">
                 <b>{{face?.gender}}</b>: {{face?.age}}
             </div>
+            <button *ngIf="!currentItemSaved" (click)="saveImage()">Save Image</button>
+            <span *ngIf="currentItemSaved">Image Saved!</span>
+
         </div>
         <div *ngIf="isAnalyzing">
             <h4>Analyzing Photo</h4>
