@@ -17,7 +17,7 @@ export class UserService {
     }*/
 
     constructor(private http: Http) {
-        this.originUrl = "http://localhost:5000";
+        this.originUrl = "https://mihansenazuretoolkit.azurewebsites.net";
     }
 
     public getUser(): Observable<User> {
