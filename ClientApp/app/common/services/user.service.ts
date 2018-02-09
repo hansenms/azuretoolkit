@@ -17,20 +17,21 @@ export class UserService {
     }*/
 
     constructor(private http: Http) {
-        this.originUrl = "https://mihansenazuretoolkit.azurewebsites.net";
+        this.originUrl = "http://localhost:5000";
     }
 
     public getUser(): Observable<User> {
 
-        return this.http.get(`${this.originUrl}/.auth/me`)
+        return this.http.get(`${this.originUrl}/blah.html`)
         //return this.http.get("https://www.google.com")
             .map(response => {
                 try {
-                    this.aadUser = response.json()[0] as AADUser;
+                    //this.aadUser = response.json()[0] as AADUser;
    
                     let user = new User();
-                    user.userId = this.aadUser.user_id;
+                    //user.userId = this.aadUser.user_id;
                     user.userId = "BLAHBLAH"
+                    /*
                     this.aadUser.user_claims.forEach(claim => {
                         switch (claim.typ) {
                             case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname":
@@ -41,7 +42,7 @@ export class UserService {
                                 break;
                         }
                     });
-   
+                    */
                     return user;
                 }
                 catch (Exception) {
