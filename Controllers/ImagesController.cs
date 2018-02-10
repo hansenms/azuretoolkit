@@ -74,7 +74,10 @@ namespace WebApplicationBasic.Controllers
         [HttpGet]
         public async Task<string> GetImage()
         {
-            return _configuration.GetConnectionString("defaultConnection");
+            var imlist = _context.SavedImages.ToList();
+
+
+            return imlist[0].Description;
         }
 
     }
