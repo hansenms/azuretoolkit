@@ -24,7 +24,7 @@ namespace AzureToolkit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration.GetConnectionString("defaultConnection");
+            var connection = @"Server=tcp:mihansenazuretk.database.windows.net,1433;Initial Catalog=azuretoolkit;Persist Security Info=False;User ID=dbadmin;Password=F0reRunner!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; //Configuration.GetConnectionString("defaultConnection");
             services.AddDbContext<AzureToolkitContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }
