@@ -5,4 +5,8 @@ export interface ImagePostRequest {
     url: string;
     id: string;
     encodingFormat: string;
+    faces: Array<{
+        age: number;
+        gender: string;
+    }>
 }

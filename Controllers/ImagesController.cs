@@ -59,10 +59,16 @@ namespace WebApplicationBasic.Controllers
             savedImage.Description = request.Description;
             savedImage.StorageUrl = blockBlob.Uri.ToString();
             savedImage.Tags = new List<SavedImageTag>();
+            savedImage.Faces = new List<SavedImageFace>();
 
             foreach(var tag in request.Tags)
             {
                 savedImage.Tags.Add(new SavedImageTag() {Tag = tag});
+            }
+
+            foreach(var face in request.Faces)
+            {
+                savedImage.Faces.Add(new SavedImageFace() {Age = face.Age, Gender = face.Gender});
             }
 
             _context.Add(savedImage);
@@ -81,6 +87,14 @@ namespace WebApplicationBasic.Controllers
         }
 
     }
+
+    public class Face {
+        public int Age { get; set; }
+
+        public string Gender { get; set; }
+
+    }
+
     public class ImagePostRequest
      {
          public string UserId { get; set; }
@@ -89,5 +103,7 @@ namespace WebApplicationBasic.Controllers
          public string URL { get; set; }
          public string Id { get; set; }
          public string EncodingFormat { get; set; }
+
+         public Face[] Faces;
      }
 }

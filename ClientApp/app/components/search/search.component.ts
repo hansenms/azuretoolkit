@@ -61,7 +61,8 @@ export class SearchComponent implements OnInit {
                 encodingFormat: this.currentItem.encodingFormat,
                 id: this.currentItem.imageId,
                 description: this.currentAnalytics.description.captions[0].text,
-                tags: this.currentAnalytics.tags.map(tag => tag.name)
+                tags: this.currentAnalytics.tags.map(tag => tag.name),
+                faces: this.currentAnalytics.faces.map(face => ({age: face.age, gender: face.gender }))
             }
 
             this.azureToolkitService.saveImage(transferObject).subscribe(saveSuccessful => {
