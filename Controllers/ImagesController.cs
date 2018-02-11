@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using WebApplicationBasic.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
 namespace WebApplicationBasic.Controllers
 {
@@ -21,6 +23,10 @@ namespace WebApplicationBasic.Controllers
 
         private IConfiguration _configuration;
 
+        private string _searchServiceName;
+        private string _searchServiceKey;
+        
+
         public ImagesController(IConfiguration configuration,
                                 ILogger<ImagesController> logger,
                                 AzureToolkitContext context)
@@ -28,6 +34,8 @@ namespace WebApplicationBasic.Controllers
             _logger = logger;
             _context = context;
             _configuration = configuration;
+            _searchServiceName = _configuration["searchservicename"];
+            _searchServiceKey = _configuration["searchservicekey"];
 
             _logger.LogInformation("storage account: " + configuration["storageaccount"]);
             _logger.LogInformation("storage key: " + configuration["storagekey"]);
@@ -77,15 +85,26 @@ namespace WebApplicationBasic.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<string> GetImage()
+        [HttpGet("{userId}")]
+        public IActionResult GetImages(string userID)
         {
-            var imlist = _context.SavedImages.ToList();
-
-
-            return imlist[0].Description;
+            var images = _context.SavedImages.Where(image => image.UserId == userID);
+            return Ok(images);
         }
 
+        [HttpGet("search/{userId}/{term}")]
+        public IActionResult SearchImages(string userId, string term)
+        {
+                string searchServiceName = _searchServiceName;
+                string queryApiKey = _searchServiceKey;
+
+                SearchIndexClient indexClient = new SearchIndexClient(searchServiceName, "description", new SearchCredentials(queryApiKey));
+
+                SearchParameters parameters = new SearchParameters() { Filter = $"UserId eq '{userId}'" };
+                DocumentSearchResult<SavedImage> results = indexClient.Documents.Search<SavedImage>(term, parameters);
+
+                return Ok(results.Results.Select((savedImage) => savedImage.Document));
+        }
     }
 
     public class Face {

@@ -7,16 +7,16 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { SearchComponent } from './components/search/search.component';
 import { AzTKCommonModule } from './common/common.module';
 import { UserService } from './common/services/user.service';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        FetchDataComponent,
+        GalleryComponent,
         HomeComponent,
         SearchComponent
     ],
@@ -28,7 +28,7 @@ import { UserService } from './common/services/user.service';
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'search', component: SearchComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'gallery', component: GalleryComponent },
             { path: '**', redirectTo: 'home' }
         ]),
         AzTKCommonModule
